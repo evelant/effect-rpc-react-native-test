@@ -17,12 +17,18 @@ const client = HttpResolver.make<UserRouter>(
 ).pipe(Resolver.toClient);
 
 // Use the client
-client(new GetUserIds()).pipe(
-  Stream.runCollect,
-  Effect.flatMap(
-    Effect.forEach(id => client(new GetUser({ id })), { batching: true })
-  ),
-  Effect.tap(Console.log),
-  Effect.tapErrorCause(Console.error),
-  Effect.runFork
-);
+const t1 = performance.now();
+client(new GetUserIds())
+  .pipe(
+    Stream.runCollect,
+    Effect.flatMap(
+      Effect.forEach(id => client(new GetUser({ id })), { batching: true })
+    ),
+    Effect.tap(Console.log),
+    Effect.tapErrorCause(Console.error),
+    Effect.runPromise
+  )
+  .then(() => {
+    const t2 = performance.now();
+    console.log(`done in ${t2 - t1}ms`);
+  });

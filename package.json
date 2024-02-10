@@ -9,7 +9,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "start": "bun index.ts"
+    "start": "bun --watch index.ts"
   },
   "dependencies": {
     "@effect/platform": "^0.44.2",
