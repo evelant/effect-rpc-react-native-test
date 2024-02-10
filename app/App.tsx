@@ -1,15 +1,16 @@
 import "expo-dev-client";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 
 // polyfillEncoding();
 // polyfillFetch();
 
 import "./client";
+import { testRpc } from "./client";
 export function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Button onPress={testRpc} title="Test Rpc" />
       <StatusBar style="auto" />
     </View>
   );

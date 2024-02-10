@@ -17,13 +17,14 @@ const client = HttpResolver.make<UserRouter>(
 ).pipe(Resolver.toClient);
 
 // Use the client
-client(new GetUserIds()).pipe(
-  Stream.runCollect,
-  Effect.flatMap(
-    Effect.forEach(id => client(new GetUser({ id })), { batching: true })
-  ),
-  Effect.tap(Effect.log),
-  Effect.tapErrorCause(Effect.logError),
-  Effect.withLogSpan(`client`),
-  Effect.runFork
-);
+export const testRpc = () =>
+  client(new GetUserIds()).pipe(
+    Stream.runCollect,
+    Effect.flatMap(
+      Effect.forEach(id => client(new GetUser({ id })), { batching: true })
+    ),
+    Effect.tap(Effect.log),
+    Effect.tapErrorCause(Effect.logError),
+    Effect.withLogSpan(`client`),
+    Effect.runFork
+  );
