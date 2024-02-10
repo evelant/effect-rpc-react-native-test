@@ -1,0 +1,14 @@
+diff --git a/node_modules/@effect/platform/dist/cjs/internal/http/client.js b/node_modules/@effect/platform/dist/cjs/internal/http/client.js
+index 73e0c5d..a32c9f5 100644
+--- a/node_modules/@effect/platform/dist/cjs/internal/http/client.js
++++ b/node_modules/@effect/platform/dist/cjs/internal/http/client.js
+@@ -87,7 +87,8 @@ const fetch = options => makeDefault(request => Effect.flatMap(UrlParams.makeUrl
+       headers,
+       body,
+       duplex: request.body._tag === "Stream" ? "half" : undefined,
+-      signal
++      signal,
++      reactNative: { textStreaming: true }
+     }),
+     catch: _ => internalError.requestError({
+       request,
